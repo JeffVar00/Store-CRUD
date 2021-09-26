@@ -12,3 +12,6 @@ class sucursal:
         self.ID = ID
         self.Ubicacion = ubicacion
         self.Secciones = listaDobleC()
+
+    def ubicacion(self):
+        return self.Ubicacion

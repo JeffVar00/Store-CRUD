@@ -4,3 +4,6 @@ class tipoProducto:
         self.ID = ID
         self.nombre = nombre
         self.precio = precio
+
+    def idTipo(self):
+        return self.ID

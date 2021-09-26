@@ -1,5 +1,7 @@
 import queue
+import os
 from cliente import cliente
+from sucursal import sucursal
 
 """
 from seccion import seccion
@@ -13,30 +15,45 @@ from listaProducto import listaDoble
 
 class menu:
 
-    def cargar():
-        pass
+    def __init__(self):
+        self.sucursales = []
 
-    def menuPrincipal():
-        pass
+    def cargar(self):
+        sucursal1 = sucursal("1","Florida")
+        sucursal2 = sucursal("2","Japon")
+        sucursal3 = sucursal("3","Francia")
 
-"""prueba lista doblemente enlazada
-        productos = listaDoble()
-        producto1 = producto("1","uno",1)
-        producto2 = producto("2", "dos", 2)
-        producto3 = producto("3", "tres", 3)
-        producto4 = producto("4", "cuatro", 4)
+        self.sucursales.append(sucursal1)
+        self.sucursales.append(sucursal2)
+        self.sucursales.append(sucursal3)
 
-        productos.agregarInicio(producto1)
-        productos.agregarInicio(producto2)
-        productos.agregarInicio(producto3)
-        productos.agregarInicio(producto4)
+    def menuPrincipal(self):
+        self.cargar()
+        nSucursal = None
+        while nSucursal != 0:
 
-        x = productos.buscar("2")
-        productos.mostrar()
-        print(x.toString())
-        productos.eliminarInicio()
-        productos.mostrar()
-"""
+            os.system("cls")
+            print("""        El martillazo Feliz
+Bienvenido al martillazo Feliz!
+Ingrese el numero de sucursal al que desea acceder
+Digite 0 para salir
+            """)
+
+            nSucursal = input("Sucursal: ")
+            if nSucursal.isnumeric() == False or int(nSucursal) > 3 or int(nSucursal) < 0:
+                print("No se digito una opcion valida")
+                os.system("pause")
+            elif nSucursal != 0:
+                self.menuSucursal(int(nSucursal))
+
+    def menuSucursal(self, nSucursal):
+        x = None
+        while(x != 0):
+            os.system("cls")
+            if nSucursal == 1:
+                print("Sucursal: " + self.sucursales[0].ubicacion())
+                os.system("pause")
+                x = 0
 
 """prueba cola
 
@@ -66,26 +83,4 @@ class menu:
         print(x.toString())
 
 """
-
-
-
-"""prueba lista doblemente enlazada circular
-        secciones = listaDobleC()
-        seccion1 = seccion("uno", "1")
-        seccion2 = seccion("dos", "2")
-        seccion3 = seccion("tres", "3")
-        seccion4 = seccion("cuatro", "4")
-
-        secciones.agregarFinal(seccion1)
-        secciones.agregarFinal(seccion2)
-        secciones.agregarFinal(seccion3)
-        secciones.agregarFinal(seccion4)
-
-        x = secciones.buscar("dos")
-        secciones.mostrar()
-        print(x.toString())
-        secciones.eliminar("uno")
-        secciones.mostrar()
-"""
-
 
