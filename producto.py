@@ -2,7 +2,7 @@ from pila import pila
 from tipoProducto import tipoProducto
 
 class producto:
-
+#ahora
     def __init__(self, ID, nombre):
         self.ID = ID
         self.nombre = nombre
