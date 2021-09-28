@@ -1,25 +1,19 @@
-#doblemente enlazada circular
-from seccion import seccion
+# doblemente enlazada circular
+from nodo import Nodo
 
-class Nodo:
-    def __init__(self, dato):
-        self.dato = dato
-        self.siguiente = None
-        self.anterior = None
 
 class listaDobleC:
 
     def __init__(self):
         self.primero = None
         self.ultimo = None
+        self.cantidad = 0
 
     def vacia(self):
         if self.primero == None:
             return True
         else:
             return False
-
-    #metodo agregar falta
 
     def agregarInicio(self, dato):
         if self.vacia():
@@ -30,6 +24,7 @@ class listaDobleC:
             self.primero.anterior = aux
             self.primero = aux
         self.__unirNodos() #las hace circulares
+        self.cantidad += 1
 
     def agregarFinal(self, dato):
         if self.vacia():
@@ -39,6 +34,7 @@ class listaDobleC:
             self.ultimo = aux.siguiente = Nodo(dato)
             self.ultimo.anterior = aux
         self.__unirNodos() #las hace circulares
+        self.cantidad += 1
 
     def __unirNodos(self):
         if self.primero != None:
@@ -62,6 +58,7 @@ class listaDobleC:
         else:
             self.primero = self.primero.siguiente
         self.__unirNodos()
+        self.cantidad -= 1
 
     def eliminarFinal(self):
         if self.primero == self.ultimo:
@@ -69,11 +66,12 @@ class listaDobleC:
         else:
             self.ultimo = self.ultimo.anterior
         self.__unirNodos()
+        self.cantidad -= 1
 
-    def buscar(self, nombre):
+    def buscar(self, numero):
         aux = self.primero
         while aux:
-            if aux.dato.nom() == nombre:
+            if aux.MostrarNumero() == numero:
                 return aux.dato
             else:
                 aux = aux.siguiente
@@ -100,7 +98,7 @@ class listaDobleC:
         n = self.primero
         while n.siguiente is not self.primero:
             if n.dato.nom() == x:
-                break;
+                break
             n = n.siguiente
         if n.siguiente is not self.primero:
             n.anterior.siguiente = n.siguiente
@@ -111,5 +109,8 @@ class listaDobleC:
             else:
                 print("Element not found")
 
-#https://www.youtube.com/watch?v=c27dIMT9kLE De aqui se obtuvieron la mayoria de metodos, a excepcion de eliminar por posicion
-#https://pharos.sh/lista-doblemente-enlazada-con-ejemplos-de-python/ Metodo eliminar por posicion
+    def ReturnCantidad(self):
+        return self.cantidad
+
+# https://www.youtube.com/watch?v=c27dIMT9kLE De aqui se obtuvieron la mayoria de metodos, a excepcion de eliminar por posicion
+# https://pharos.sh/lista-doblemente-enlazada-con-ejemplos-de-python/ Metodo eliminar por posicion

@@ -1,11 +1,6 @@
-#doblemente enlazada
-from producto import producto
+# doblemente enlazada
+from nodo import Nodo
 
-class Nodo:
-    def __init__(self, dato):
-        self.dato = dato
-        self.siguiente = None
-        self.anterior = None
 
 class listaDoble:
 
@@ -13,59 +8,67 @@ class listaDoble:
         self.primero = None
         self.ultimo = None
 
-    def vacia(self):
-        if self.primero == None:
-            return True
-        else:
-            return False
-
     def agregarInicio(self, dato):
-        if self.vacia():
+        # Si la lista esta vacia, primero y ultimo apuntarán al mismo nodo
+        if self.primero is None:
             self.primero = self.ultimo = Nodo(dato)
+        # En caso contrario, se añadirá un nodo en donde el siguiente de este será el primero y
+        # el primero tendra como anterior el nuevo nodo. Por ultimo el nuevo nodo pasa a ser el
+        # primero.
         else:
-            aux = Nodo(dato)
-            aux.siguiente = self.primero
-            self.primero.anterior = aux
-            self.primero = aux
+            nuevo_nodo = Nodo(dato)
+            nuevo_nodo.siguiente = self.primero
+            self.primero.anterior = nuevo_nodo
+            self.primero = nuevo_nodo
 
     def agregarFinal(self, dato):
-        if self.vacia():
+        # Si la lista esta vacia, primero y ultimo apuntarán al mismo nodo
+        if self.primero is None:
             self.primero = self.ultimo = Nodo(dato)
+        # En caso contrario, el nuevo nodo pasará a ser el ultimo nodo en la lista y el que era
+        # el ultimo nodo, pasará a ser el penultimo.
         else:
-            aux = self.ultimo
-            self.ultimo = aux.siguiente = Nodo(dato)
-            self.ultimo.anterior = aux
+            nuevo_nodo = self.ultimo
+            self.ultimo = nuevo_nodo.siguiente = Nodo(dato)
+            self.ultimo.anterior = nuevo_nodo
 
     def mostrar(self):
-        aux = self.primero
-        if self.vacia():
-            print("Vacio")
+        # Si la lista está vacia se muestra al usuario que esta vacia la lista
+        if self.primero is None:
+            print("La Lista de Productos se encuentra Vacia")
+        # En caso contrario, se recorre la lista y se va mostrando cada dato de la lista
         else:
-            while aux:
-                print(aux.dato.toString())
-                aux = aux.siguiente
-                if aux == self.primero:
-                    break
+            temporal = self.primero
+            while temporal is not None:
+                print(temporal.MostrarDato())
+                temporal = temporal.siguiente
 
     def eliminarInicio(self):
-        if self.vacia():
-            print("Vacio")
+        # Si la lista está vacia, muestra al usuario que está vacia
+        if self.primero is None:
+            print("La Lista de Productos se encuentra Vacia")
+        # En caso contrario, si solo tiene un elemento en la lista, borra el primer elemento
         elif self.primero.siguiente is None:
             self.primero = None
-            return
-        self.primero = self.primero.siguiente
-        self.primero.anterior = None
+        # Si la lista posee más de un nodo, el segundo nodo pasa a ser el primero.
+        else:
+            self.primero = self.primero.siguiente
+            self.primero.anterior = None
 
     def eliminarFinal(self):
-        if self.vacia():
-            print("Vacio")
+        # Si la lista está vacia, muestra al usuario que está vacia
+        if self.primero is None:
+            print("La Lista de Productos se encuentra Vacia")
+        # En Caso Contrario, si solo hay un Nodo en la lista, se borra el primer y ultimo nodo
         elif self.primero.siguiente is None:
             self.primero = None
-            return
-        n = self.primero
-        while n.siguiente is not None:
-            n = n.siguiente
-        n.anterior.siguiente = None
+        # Si la lista posee más de un Nodo,
+        else:
+            """temporal = self.primero
+            while temporal.siguiente is not None:
+                temporal = temporal.siguiente
+            temporal.anterior.siguiente = None"""
+            self.ultimo.anterior.siguiente = None
 
     def buscar(self, id):
         aux = self.primero
@@ -109,5 +112,5 @@ class listaDoble:
                 print("Element not found")
 
 
-#https://www.youtube.com/watch?v=c27dIMT9kLE De aqui se obtuvieron la mayoria de metodos, a excepcion de eliminar final, inicio y eliminar por posicion
-#https://pharos.sh/lista-doblemente-enlazada-con-ejemplos-de-python/ Metodos eliminar final, inicio y eliminar por posicion
+# https://www.youtube.com/watch?v=c27dIMT9kLE De aqui se obtuvieron la mayoria de metodos, a excepcion de eliminar final, inicio y eliminar por posicion
+# https://pharos.sh/lista-doblemente-enlazada-con-ejemplos-de-python/ Metodos eliminar final, inicio y eliminar por posicion
