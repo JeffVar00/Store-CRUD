@@ -1,19 +1,14 @@
-from pila import pila
-from tipoProducto import tipoProducto
-
 
 class producto:
 
-    def __init__(self, ID, nombre):
+    def __init__(self, ID, nombre, precio):
         self.ID = ID
         self.nombre = nombre
-        self.pilaProductos = pila()
+        self.precio = precio
 
-    def identificacion(self):
-        return (self.ID)
+    def idTipo(self):
+        return self.ID
 
     def toString(self):
-        return self.ID + self.nombre
+        return "ID: " + self.ID + ", Descripcion: " + self.nombre + ", Precio: {}".format(self.precio)
 
-    def agregarPila(self, dato):
-        self.pilaProductos.incluir(dato)
