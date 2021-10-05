@@ -13,6 +13,9 @@ class sucursal:
     def ubicacion(self):
         return self.Ubicacion
 
+    def myID(self):
+        return self.ID
+
     def mostrar(self):
         self.Secciones.mostrar()
 

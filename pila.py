@@ -16,10 +16,12 @@ class pila:
         return len(self.items)
 
     def mostrar(self):
-        pilaAux = self.items
+        pilaAux = []
         for i in range(0, self.tamano()):
-            print(pilaAux[-1].toString())
-            pilaAux.pop()
+            print(self.items[len(self.items) - 1].toString())
+            pilaAux.append(self.items.pop())
+        for i in range(0, len(pilaAux)):
+            self.items.append(pilaAux.pop())
 
 #pila productos y pila carrito
 #pila

@@ -3,8 +3,8 @@ from pila import pila
 
 class cliente:
 
-    def __init__(self, nombre):
-        self.nombre = nombre
+    def __init__(self):
+        self.nombre = None
         self.carrito = pila()
 
     def toString(self):

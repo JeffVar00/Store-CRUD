@@ -23,8 +23,8 @@ from listaProducto import listaDoble
 class menu:
 
     def __init__(self):
+        self.nuevo = False
         self.ferreteria = []
-        self.cliente = cliente
         self.colaClientes = queue.Queue(5)
 
     def cargar(self):
@@ -77,6 +77,8 @@ class menu:
 
     def menuPrincipal(self):
         self.cargar()
+        self.cliente = cliente()
+        self.nuevo = False
         opcion = None
         while opcion != 0:
             os.system("cls")
@@ -88,6 +90,7 @@ class menu:
                    "Opciones:\n"
                    "1 - Abrir Nueva Sucursal\n"
                    "2 - Acceder a una Sucursal\n"
+                   "3 - Eliminar sucursal\n"
                    "0 - Salir\n").format("\n".join(self.mostrarFerreteria())))
             opcion = input("Opcion Elegida: ")
             if opcion.isnumeric() is True:
@@ -101,6 +104,16 @@ class menu:
                         os.system("pause")
                     elif nSucursal != "0":
                         self.menuSucursal(int(nSucursal))
+                if opcion == 3:
+                    validar = False
+                    idSucursal = input("Digite el ID de la sucursal a borrar: ")
+                    for i in range(0, len(self.ferreteria)):
+                        if idSucursal == self.ferreteria[i].myID():
+                            self.eliminarSucursal(idSucursal)
+                            validar = True
+                            break
+                    if validar == False: print("No se encontro esta sucursal")
+                    os.system("pause")
 
     def agregar_sucursal(self):
         print("**********El martillazo Feliz**********\n\n"
@@ -115,35 +128,7 @@ class menu:
                     numero_seccion = input("Digite el numero de la seccion: ")
                     if numero_seccion.isnumeric() is True:
                         nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
-                        agregar_tipos_producto = True
-                        while agregar_tipos_producto is True:
-                            nombre_tipo_producto = input("Digite el nombre del tipo del producto: ")
-                            if nombre_tipo_producto.isnumeric() is False:
-                                nuevo_tipo_producto = tipoProducto("{}".format(randint(0, 5000000)),
-                                                                   nombre_tipo_producto)
-                                agregar_productos = True
-                                while agregar_productos is True:
-                                    nombre_producto = input("Digite el nombre del Producto: ")
-                                    if nombre_producto.isnumeric() is False:
-                                        precio_producto = input(
-                                            "Digite el precio (en colones) del producto " + nombre_producto + ": ")
-                                        if precio_producto.isnumeric() is True:
-                                            nuevo_producto = producto("{}".format(randint(0, 1000000)), nombre_producto,
-                                                                      precio_producto)
-                                            nuevo_tipo_producto.agregarPila(nuevo_producto)
-                                            agregar = input("Desea agregar otro producto? (S = Si, Otra Tecla = No): ")
-                                            if agregar != "S":
-                                                agregar_productos = False
-                                        else:
-                                            print("El precio debe ser un numero")
-                                    else:
-                                        print("El nombre no debe ser un numero")
-                                nueva_seccion.agregarProducto(nuevo_tipo_producto)
-                                agregar = input("Desea agregar otro tipo de producto? (S = Si, Otra Tecla = No): ")
-                                if agregar != "S":
-                                    agregar_tipos_producto = False
-                            else:
-                                print("El nombre no debe ser un numero")
+                        self.agregarProductos(nueva_seccion)
                         nueva_sucursal.Secciones.agregarInicio(nueva_seccion)
                         agregar = input("Desea agregar otra seccion? (S = Si, Otra Tecla = No): ")
                         if agregar != "S":
@@ -157,9 +142,42 @@ class menu:
         else:
             print("La ubicacion no debe ser un numero")
 
+    def agregarProductos(self, seccion):
+        agregar_tipos_producto = True
+        while agregar_tipos_producto is True:
+            nombre_tipo_producto = input("Digite el nombre del tipo del producto: ")
+            if nombre_tipo_producto.isnumeric() is False:
+                nuevo_tipo_producto = tipoProducto("{}".format(randint(0, 500)),
+                                                   nombre_tipo_producto)
+                agregar_productos = True
+                while agregar_productos is True:
+                    nombre_producto = input("Digite el nombre del Producto: ")
+                    if nombre_producto.isnumeric() is False:
+                        precio_producto = input(
+                            "Digite el precio (en colones) del producto " + nombre_producto + ": ")
+                        if precio_producto.isnumeric() is True:
+                            nuevo_producto = producto("{}".format(randint(0, 1000)), nombre_producto,
+                                                      precio_producto)
+                            nuevo_tipo_producto.agregarPila(nuevo_producto)
+                            agregar = input("Desea agregar otro producto? (S = Si, Otra Tecla = No): ")
+                            if agregar != "S":
+                                agregar_productos = False
+                        else:
+                            print("El precio debe ser un numero")
+                    else:
+                        print("El nombre no debe ser un numero")
+                seccion.agregarProducto(nuevo_tipo_producto)
+                agregar = input("Desea agregar otro tipo de producto? (S = Si, Otra Tecla = No): ")
+                if agregar != "S":
+                    agregar_tipos_producto = False
+            else:
+                print("El nombre no debe ser un numero")
+
     def menuSucursal(self, nSucursal):
         opcion = None
         su = self.ferreteria[nSucursal - 1]
+        name = input("Digite su nombre de cliente: ")
+        self.cliente.definirNombre(name)
         while opcion != "0":
             os.system("cls")
             print("Sucursal: " + su.ubicacion())
@@ -167,32 +185,26 @@ class menu:
             print(("\n"
                    "1 - Mi carrito\n"
                    "2 - Entrar a una seccion\n"
-                   "3 - Pasar a cajas\n"
-                   "4 - Eliminar Seccion\n"
-                   "5 - Eliminar esta sucursal\n"
+                   "3 - Eliminar Seccion\n"
+                   "4 - Editar esta sucursal\n"
                    "0 - Salir\n"))
             opcion = input("Digite la opcion que desea realizar: ")
             if opcion.isnumeric() is True:
                 if opcion == "1":
                     self.menuCarrito()
+                    if self.nuevo is True:
+                        break
                 elif opcion == "2":
                     opcion = input("A que seccion se desea dirigir (Digite el # de seccion): ")
-                    if opcion.isnumeric() is False or int(opcion) > su.CantidadSecciones() or int(opcion) < 0:
+                    if opcion.isnumeric() is False:
                         print("No se digito una opcion valida")
                         os.system("pause")
                     else:
                         self.dentroSeccion(su ,int(opcion))
                 elif opcion == "3":
-                    self.pagar()
-                elif opcion == "4":
                     self.eliminarSeccion(su)
-                elif opcion == "5":
-                    self.eliminarSucursal(nSucursal)
-                    if self.eliminarSucursal(nSucursal) is True:
-                        break
-                    else:
-                        print("No se ha eliminado la sucursal")
-                        os.system("pause")
+                elif opcion == "4":
+                    self.mantenimientoSucursal(su)
                 elif opcion == "0":
                     print("Gracias por visitarnos!")
                     os.system("pause")
@@ -251,26 +263,39 @@ class menu:
 
     def menuCarrito(self):
         if self.cliente.carritoCliente().tamano() != 0:
+            print("Carrito de: " + self.cliente.toString())
             print("Total de productos en el carrito: {}".format(self.cliente.carritoCliente().tamano()))
             self.cliente.carritoCliente().mostrar()
+            opcion = input("Desea proceder a cajas 1- Si Otra tecla- No: ")
+            if opcion == "1":
+                self.pagar()
+                self.nuevo = True
             os.system("pause")
         else:
             print("Carrito vacio")
             os.system("pause")
 
     def pagar(self):
-        pass
+        total = 0
+        print("-------Cajas-------")
+        self.colaClientes.put(self.cliente)
+        print("Se ingreso a la cola")
+        print("Cantidad de personas en la cola: {}".format(self.colaClientes.qsize()))
+        for i in range(0, self.cliente.carritoCliente().tamano()):
+            total += self.cliente.carritoCliente().inspeccionar().precioP()
+            print("Se extrajo " + self.cliente.carritoCliente().inspeccionar().toString())
+            self.cliente.carritoCliente().extraer()
+        print("Total: {}".format(total))
 
-    def eliminarSucursal(self, nSucursal):
-        opcion = print("Seguro que desea eliminar esta seccion?: 1- Si Otra tecla- No: ")
+    def eliminarSucursal(self, idSucursal):
+        opcion = input("Seguro que desea eliminar esta seccion?: 1- Si Otra tecla- No: ")
         if opcion == "1":
-            self.ferreteria.remove(nSucursal - 1)
-            print("Se ha eliminado la sucursal")
-            os.system("pause")
-            return True
-        else:
-            os.system("pause")
-            return False
+            for i in range(0, len(self.ferreteria)):
+                if idSucursal == self.ferreteria[i].myID():
+                    self.ferreteria.pop(i)
+                    print("Se ha eliminado la sucursal")
+                    break
+
     def eliminarSeccion(self, sucursal):
         numero = None
         while numero != "0":
@@ -287,9 +312,11 @@ class menu:
                 if numero == "1":
                     sucursal.seccionesSucursal().eliminarInicio()
                     print("Se ha eliminado la seccion!")
+                    os.system("pause")
                 elif numero == "2":
                     sucursal.seccionesSucursal().eliminarFinal()
                     print("Se ha eliminado la seccion!")
+                    os.system("pause")
                 elif numero == "3":
                     opcion = input("Digite el numero de seccion que desea eliminar: ")
                     sucursal.seccionesSucursal().eliminar(int(opcion))
@@ -304,21 +331,105 @@ class menu:
                 print("Solo se permite un digito numerico")
                 os.system("pause")
 
-    def mantenimientoSeccion(self, seccion): #recibe la seccion en la que esta, esto va dentro de menuSeccion
-        #solo crear menu
-        #aqui dentro va el eliminarSeccion()
-        pass
+    def mantenimientoSeccion(self, sucursal, nSeccion):
+        seccion = sucursal.manejarSeccion(nSeccion)
+        opcion = None
+        if seccion is False:
+            print("Esta seccion no se encontro")
+        else:
+            while opcion != "0":
+                print(seccion.toString() + "\n")
+                seccion.mostrarProductos()
+                print("1 - Agregar Productos\n"
+                      "2 - Editar Producto\n"
+                      "3 - Eliminar Especifico\n"
+                      "0 - Volver\n")
+                numero = input("Digite la opcion que desea realizar: ")
+                if numero.isnumeric() is True:
+                    if numero == "1":
+                        self.agregarProductos(seccion)
+                        os.system("pause")
+                    elif numero == "2":
+                        id = input("Digite el ID del productos: ")
+                        producto = seccion.manejarProductos().buscar(id)
+                        if productos is False:
+                            print("No se encontro este productos Digite nuevamente")
+                        else:
+                            self.mantenimientoProductos(productos)
+                            os.system("pause")
+                    elif numero == "3":
+                        id = input("Digite el ID del productos: ")
+                        producto = seccion.manejarProductos().buscar(id)
+                        if producto is False:
+                            print("No se encontro este productos Digite nuevamente")
+                        else:
+                            seccion.manejarProductos().eliminar(id)
+                            print("Se elimino el producto!")
+                            os.system("pause")
+                    elif numero == "0":
+                        os.system("pause")
+                    else:
+                        print("No se digito una opcion valida")
+                        os.system("pause")
+                else:
+                    print("Solo se permite un digito numerico")
+                    os.system("pause")
 
-    def mantenimientoSucursal(self, sucursal): #recibe la sucursal en la que esta, esto va dentro de menuSucursal
-        #solo crear menu
-        # aqui dentro va el eliminarSucursal()
-        pass
+    def mantenimientoSucursal(self, sucursal):
+        opcion = None
+        while opcion != 0:
+            print("**El martillazo Feliz**\n\n"
+                  "Opciones\n\n"
+                  "1- Agregar Seccion\n"
+                  "2- Editar Seccion\n"
+                  "0- Volver al Menu Principal\n\n")
+            opcion = input("Digite la opcion que desea realizar: ")
+            if opcion.isnumeric() is True:
+                opcion = int(opcion)
+                if opcion == 1:
+                    nombre_seccion = input("Digite el nombre de la seccion: ")
+                    if nombre_seccion.isnumeric() is False:
+                        numero_seccion = input("Digite el numero de la seccion: ")
+                        if numero_seccion.isnumeric() is True:
+                            nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
+                            sucursal.Secciones.agregarInicio(nueva_seccion)
+                            print("La nueva seccion se ha agregado con exito")
+                        else:
+                            print("El numero de Seccion debe tener digitos")
+                    else:
+                        print("El nombre de Seccion no debe tener digitos")
+                elif opcion == 2:
+                    print(sucursal.mostrar())
+                    numero_seccion = input("Digite el Numero de Seccion a Editar: ")
+                    if numero_seccion.isnumeric() is True:
+                        numero_seccion = int(numero_seccion)
+                        self.mantenimientoSeccion(sucursal, numero_seccion)
+                    else:
+                        print("El numero de Seccion debe tener digitos")
 
     def mantenimientoProductos(self):
-        pass
+        while opcion != "0":
+            #pendiente
+            print(seccion.toString() + "\n")
+            seccion.mostrarProductos()
+            print("1 - Agregar nuevo\n"
+                  "2 - Eliminar todos los productos de este tipo\n"
+                  "0 - Volver\n")
+            numero = input("Digite la opcion que desea realizar: ")
+            if numero.isnumeric() is True:
+                if numero == "1":
+                    os.system("pause")
+                elif numero == "2":
 
-    def mantenimientoTProductos(self, producto):
-        pass
+                    os.system("pause")
+                elif numero == "0":
+                    os.system("pause")
+                else:
+                    print("No se digito una opcion valida")
+                    os.system("pause")
+            else:
+                print("Solo se permite un digito numerico")
+                os.system("pause")
 
     def mostrarFerreteria(self):
         sucursales = []
