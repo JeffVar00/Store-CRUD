@@ -69,6 +69,10 @@ class listaDobleC:
         self.cantidad -= 1
 
     def buscar(self, numero):
+
+        if self.vacia() is True:
+            return False
+
         aux = self.primero
         while aux:
             if aux.MostrarNumero() == numero:

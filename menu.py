@@ -116,19 +116,22 @@ class menu:
                 if nombre_seccion.isnumeric() is False:
                     numero_seccion = input("Digite el numero de la seccion: ")
                     if numero_seccion.isnumeric() is True:
-                        nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
-                        self.agregarProductos(nueva_seccion)
-                        #probar
-                        posicion = input("En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
-                        if posicion == "1":
-                            nueva_sucursal.Secciones.agregarInicio(nueva_seccion)
-                            print("Se agrego al inicio de la lista")
+                        if nueva_sucursal.seccionesSucursal().buscar(int(numero_seccion)) is False:
+                            nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
+                            self.agregarProductos(nueva_seccion)
+                            #probar
+                            posicion = input("En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
+                            if posicion == "1":
+                                nueva_sucursal.Secciones.agregarInicio(nueva_seccion)
+                                print("Se agrego al inicio de la lista")
+                            else:
+                                nueva_sucursal.Secciones.agregarFinal(nueva_seccion)
+                                print("Se agrego al final de la lista")
+                            agregar = input("Desea agregar otra seccion? (S = Si, Otra Tecla = No): ")
+                            if agregar != "S":
+                                agregar_secciones = False
                         else:
-                            nueva_sucursal.Secciones.agregarFinal(nueva_seccion)
-                            print("Se agrego al final de la lista")
-                        agregar = input("Desea agregar otra seccion? (S = Si, Otra Tecla = No): ")
-                        if agregar != "S":
-                            agregar_secciones = False
+                            print("Este numero de seccion ya existe")
                     else:
                         print("El numero de seccion debe ser un numero")
                 else:
@@ -416,17 +419,25 @@ class menu:
                     if nombre_seccion.isnumeric() is False:
                         numero_seccion = input("Digite el numero de la seccion: ")
                         if numero_seccion.isnumeric() is True:
-                            nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
-                            posicion = input("En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
-                            if posicion == "1":
-                                sucursal.Secciones.agregarInicio(nueva_seccion)
-                                print("Se agrego al inicio de la lista")
+                            if sucursal.seccionesSucursal().buscar(int(numero_seccion)) is False:
+                                nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
+                                self.agregarProductos(nueva_seccion)
+                                # probar
+                                posicion = input(
+                                    "En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
+                                if posicion == "1":
+                                    sucursal.Secciones.agregarInicio(nueva_seccion)
+                                    print("Se agrego al inicio de la lista")
+                                else:
+                                    sucursal.Secciones.agregarFinal(nueva_seccion)
+                                    print("Se agrego al final de la lista")
+                                agregar = input("Desea agregar otra seccion? (S = Si, Otra Tecla = No): ")
+                                if agregar != "S":
+                                    agregar_secciones = False
                             else:
-                                sucursal.Secciones.agregarFinal(nueva_seccion)
-                                print("Se agrego al final de la lista")
-                            print("La nueva seccion se ha agregado con exito")
+                                print("Este numero de seccion ya existe")
                         else:
-                            print("El numero de Seccion debe tener digitos")
+                            print("El numero de seccion debe ser un numero")
                     else:
                         print("El nombre de Seccion no debe tener digitos")
                 elif opcion == 2:
