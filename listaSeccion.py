@@ -85,26 +85,26 @@ class listaDobleC:
             return
 
         if self.primero.siguiente is None:
-            if self.primero.dato.nom() == x:
+            if self.primero.dato.num() == x:
                 self.eliminarInicio()
             else:
                 print("dato not found")
             return
 
-        if self.primero.dato.nom() == x:
+        if self.primero.dato.num() == x:
             self.eliminarInicio()
             return
 
         n = self.primero
         while n.siguiente is not self.primero:
-            if n.dato.nom() == x:
+            if n.dato.num() == x:
                 break
             n = n.siguiente
         if n.siguiente is not self.primero:
             n.anterior.siguiente = n.siguiente
             n.siguiente.anterior = n.anterior
         else:
-            if n.dato.nom() == x:
+            if n.dato.num() == x:
                 self.eliminarFinal()
             else:
                 print("Element not found")

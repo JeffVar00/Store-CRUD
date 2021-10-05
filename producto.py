@@ -9,6 +9,9 @@ class producto:
     def idTipo(self):
         return self.ID
 
+    def precioP(self):
+        return self.precio
+
     def toString(self):
         return "ID: " + self.ID + ", Descripcion: " + self.nombre + ", Precio: {}".format(self.precio)
 

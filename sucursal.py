@@ -16,6 +16,9 @@ class sucursal:
     def mostrar(self):
         self.Secciones.mostrar()
 
+    def seccionesSucursal(self):
+        return self.Secciones
+
     def manejarSeccion(self, nSeccion):
         return self.Secciones.buscar(nSeccion)
 

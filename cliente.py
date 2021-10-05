@@ -9,3 +9,9 @@ class cliente:
 
     def toString(self):
         return self.nombre
+
+    def carritoCliente(self):
+        return self.carrito
+
+    def definirNombre(self, name):
+        self.nombre = name

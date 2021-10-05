@@ -24,7 +24,7 @@ class menu:
 
     def __init__(self):
         self.ferreteria = []
-        self.carrito = pila()
+        self.cliente = cliente
         self.colaClientes = queue.Queue(5)
 
     def cargar(self):
@@ -168,6 +168,8 @@ class menu:
                    "1 - Mi carrito\n"
                    "2 - Entrar a una seccion\n"
                    "3 - Pasar a cajas\n"
+                   "4 - Eliminar Seccion\n"
+                   "5 - Eliminar esta sucursal\n"
                    "0 - Salir\n"))
             opcion = input("Digite la opcion que desea realizar: ")
             if opcion.isnumeric() is True:
@@ -182,6 +184,15 @@ class menu:
                         self.dentroSeccion(su ,int(opcion))
                 elif opcion == "3":
                     self.pagar()
+                elif opcion == "4":
+                    self.eliminarSeccion(su)
+                elif opcion == "5":
+                    self.eliminarSucursal(nSucursal)
+                    if self.eliminarSucursal(nSucursal) is True:
+                        break
+                    else:
+                        print("No se ha eliminado la sucursal")
+                        os.system("pause")
                 elif opcion == "0":
                     print("Gracias por visitarnos!")
                     os.system("pause")
@@ -216,13 +227,14 @@ class menu:
                            if tProductos.manejarPila().tamano() != 0:
                                print("Total de productos: {}".format(tProductos.manejarPila().tamano()))
                                print("Producto a la vista: " + tProductos.manejarPila().inspeccionar().toString())
-                               opcion = input("Desea adiquirir este producto? 1 = si 2 = siguiente Otra tecla = no: ")
+                               opcion = input("Desea adiquirir este producto? 1 = si Otra tecla = no: ")
                                #pendiente array que se le agregen los productos que ignoro, si al final no agarro nada devolver
                                #a la pila original, y de igual forma si si selecciono uno, .pop a ese y devolver los otros
+                               #no me salio xd
                                if opcion == "1":
                                    print("Gracias por adquirir: " + tProductos.manejarPila().inspeccionar().toString())
                                    print("Se ha agregado al carrito!!")
-                                   self.carrito.incluir(tProductos.manejarPila().inspeccionar())
+                                   self.cliente.carritoCliente().incluir(tProductos.manejarPila().inspeccionar())
                                    tProductos.manejarPila().extraer()
                                    os.system("pause")
                            else:
@@ -238,9 +250,9 @@ class menu:
                    os.system("pause")
 
     def menuCarrito(self):
-        if self.carrito.tamano() != 0:
-            print("Total de productos en el carrito: {}".format(self.carrito.tamano()))
-            self.carrito.mostrar()
+        if self.cliente.carritoCliente().tamano() != 0:
+            print("Total de productos en el carrito: {}".format(self.cliente.carritoCliente().tamano()))
+            self.cliente.carritoCliente().mostrar()
             os.system("pause")
         else:
             print("Carrito vacio")
@@ -249,11 +261,48 @@ class menu:
     def pagar(self):
         pass
 
-    def eliminarSucursal(self):
-        pass
-
-    def eliminarSeccion(self):
-        pass
+    def eliminarSucursal(self, nSucursal):
+        opcion = print("Seguro que desea eliminar esta seccion?: 1- Si Otra tecla- No: ")
+        if opcion == "1":
+            self.ferreteria.remove(nSucursal - 1)
+            print("Se ha eliminado la sucursal")
+            os.system("pause")
+            return True
+        else:
+            os.system("pause")
+            return False
+    def eliminarSeccion(self, sucursal):
+        numero = None
+        while numero != "0":
+            os.system("cls")
+            sucursal.mostrar()
+            print("**El martillazo Feliz**\n"
+                  "Menu Eliminar Seccion\n\n"
+                  "1 - Eliminar Primer Seccion\n"
+                  "2 - Eliminar Ultima Seccion\n"
+                  "3 - Eliminar Especifico\n"
+                  "0 - Salir\n")
+            numero = input("Digite la opcion que desea realizar: ")
+            if numero.isnumeric() is True:
+                if numero == "1":
+                    sucursal.seccionesSucursal().eliminarInicio()
+                    print("Se ha eliminado la seccion!")
+                elif numero == "2":
+                    sucursal.seccionesSucursal().eliminarFinal()
+                    print("Se ha eliminado la seccion!")
+                elif numero == "3":
+                    opcion = input("Digite el numero de seccion que desea eliminar: ")
+                    sucursal.seccionesSucursal().eliminar(int(opcion))
+                    print("Se ha eliminado la seccion!")
+                    os.system("pause")
+                elif numero == "0":
+                    os.system("pause")
+                else:
+                    print("No se digito una opcion valida")
+                    os.system("pause")
+            else:
+                print("Solo se permite un digito numerico")
+                os.system("pause")
 
     def mantenimientoSeccion(self, seccion): #recibe la seccion en la que esta, esto va dentro de menuSeccion
         #solo crear menu
