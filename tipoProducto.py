@@ -19,3 +19,6 @@ class tipoProducto:
 
     def manejarPila(self):
         return self.pilaProductos
+
+    def productos(self):
+        return self.pilaProductos

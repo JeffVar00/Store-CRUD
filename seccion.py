@@ -13,6 +13,10 @@ class seccion:
     def num(self):
         return self.numero
 
+    def actualizar(self, nombre, num):
+        self.nombre = nombre
+        self.numero = num
+
     def mostrarProductos(self):
         self.productos.mostrar()
 

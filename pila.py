@@ -15,6 +15,10 @@ class pila:
     def tamano(self):
         return len(self.items)
 
+    def vaciar(self):
+        for i in range(0, self.tamano()):
+            self.items.pop()
+
     def mostrar(self):
         pilaAux = []
         for i in range(0, self.tamano()):
