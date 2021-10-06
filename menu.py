@@ -7,6 +7,7 @@ from producto import producto
 from cliente import cliente
 from pila import pila
 import queue
+import time
 
 
 class menu:
@@ -17,6 +18,7 @@ class menu:
         self.colaClientes = queue.Queue(5)
 
     def cargar(self):
+
         sucursal1 = sucursal("{}".format(randint(0, 1000)), "Florida")
         sucursal2 = sucursal("{}".format(randint(0, 1000)), "Japon")
         sucursal3 = sucursal("{}".format(randint(0, 1000)), "Francia")
@@ -119,7 +121,6 @@ class menu:
                         if nueva_sucursal.seccionesSucursal().buscar(int(numero_seccion)) is False:
                             nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
                             self.agregarProductos(nueva_seccion)
-                            #probar
                             posicion = input("En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
                             if posicion == "1":
                                 nueva_sucursal.Secciones.agregarInicio(nueva_seccion)
@@ -165,7 +166,6 @@ class menu:
                             print("El precio debe ser un numero")
                     else:
                         print("El nombre no debe ser un numero")
-                #probar
                 posicion = input("En que posicion desea ingresar el producto? 1-Inicio Otra tecla- Final: ")
                 if posicion == "1":
                     seccion.manejarProductos().agregarInicio(nuevo_tipo_producto)
@@ -297,6 +297,7 @@ class menu:
 
     def pagar(self):
         total = 0
+        factura = []
         print("-------Cajas-------")
         self.colaClientes.put(self.cliente)
         print("Se ingreso a la cola")
@@ -304,8 +305,14 @@ class menu:
         for i in range(0, self.cliente.carritoCliente().tamano()):
             total += self.cliente.carritoCliente().inspeccionar().precioP()
             print("Se extrajo " + self.cliente.carritoCliente().inspeccionar().toString())
-            self.cliente.carritoCliente().extraer()
+            factura.append(self.cliente.carritoCliente().extraer())
+        print("-----Factura-----")
+        print("Fecha y hora de salida: " + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
+        for i in range(0, len(factura)):
+            print(factura[i].toString())
         print("Total: {}".format(total))
+        self.colaClientes.get()
+        print("Se salio de la cola")
 
     def eliminarSucursal(self, idSucursal):
         opcion = input("Seguro que desea eliminar esta seccion?: 1- Si Otra tecla- No: ")
@@ -387,7 +394,6 @@ class menu:
                             seccion.manejarProductos().eliminar(id)
                             print("Se elimino el producto!")
                             os.system("pause")
-                    #probar
                     elif numero == "4":
                         nombre = input("Digite el nuevo nombre del pasillo: ")
                         numero = input("Digite el nuevo numero de pasillo: ")
@@ -422,7 +428,6 @@ class menu:
                             if sucursal.seccionesSucursal().buscar(int(numero_seccion)) is False:
                                 nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
                                 self.agregarProductos(nueva_seccion)
-                                # probar
                                 posicion = input(
                                     "En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
                                 if posicion == "1":
@@ -449,7 +454,6 @@ class menu:
                     else:
                         print("El numero de Seccion debe tener digitos")
 
-    #probar
     def mantenimientoProductos(self, tproducto):
         numero = None
         while numero != "0":

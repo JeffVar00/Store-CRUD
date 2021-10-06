@@ -77,14 +77,14 @@ class listaDoble:
                 return aux.dato
             else:
                 aux = aux.siguiente
-                if aux == self.primero:
+                if aux == None:
                     return False
 
     def eliminar(self, id):
         if self.primero is None:
             print("The list has no element to delete")
             return
-        
+
         if self.primero.siguiente is None:
             if self.primero.dato.identificacion() == id:
                 self.primero = None
