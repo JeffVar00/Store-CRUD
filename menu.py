@@ -1,4 +1,5 @@
 import os
+from archivo import archivos
 from sucursal import sucursal
 from random import randint
 from seccion import seccion
@@ -16,51 +17,58 @@ class menu:
         self.nuevo = False
         self.ferreteria = []
         self.colaClientes = queue.Queue(5)
+        self.archivo = archivos()
 
     def cargar(self):
+
+        self.archivo.cargarSucursales()
 
         sucursal1 = sucursal("{}".format(randint(0, 1000)), "Florida")
         sucursal2 = sucursal("{}".format(randint(0, 1000)), "Japon")
         sucursal3 = sucursal("{}".format(randint(0, 1000)), "Francia")
 
-        pasillo1S1 = seccion("Pasillo Juguetes", 1)
-        pasillo2S1 = seccion("Pasillo Tecnologia", 2)
-        pasillo1S2 = seccion("Pasillo Ropa", 3)
-        pasillo2S2 = seccion("Pasillo Zapatos", 4)
-        pasillo1S3 = seccion("Pasillo Muebles", 5)
-        pasillo2S3 = seccion("Pasillo Carnes", 6)
+        pasillo1 = seccion(sucursal1.myID(), "Pasillo Juguetes", 1, "{}".format(randint(0, 1000)))
+        pasillo2 = seccion(sucursal1.myID(), "Pasillo Tecnologia", 2, "{}".format(randint(0, 1000)))
+        pasillo3 = seccion(sucursal2.myID(), "Pasillo Ropa", 3, "{}".format(randint(0, 1000)))
+        pasillo4 = seccion(sucursal2.myID(), "Pasillo Zapatos", 4, "{}".format(randint(0, 1000)))
+        pasillo5 = seccion(sucursal3.myID(), "Pasillo Muebles", 5, "{}".format(randint(0, 1000)))
+        pasillo6 = seccion(sucursal3.myID(), "Pasillo Carnes", 6, "{}".format(randint(0, 1000)))
 
-        tproducto1S1 = producto("{}".format(randint(0, 100)), "Taladro MECO", 12000)
-        tproducto2S1 = producto("{}".format(randint(0, 100)), "Taladro ALPINOS", 34000)
-        tproducto1S2 = producto("{}".format(randint(0, 100)), "Tornillos 1/2 Pulgada", 1000)
-        tproducto2S2 = producto("{}".format(randint(0, 100)), "Tornillos 1/4 Pulgadas", 995)
-        tproducto1S3 = producto("{}".format(randint(0, 100)), "Martillo Feliz", 53990)
-        tproducto2S3 = producto("{}".format(randint(0, 100)), "Martillo Saiyajin", 75000)
+        tproducto1 = tipoProducto("{}".format(randint(0, 500)), "Taladros", pasillo1.idpropio())
+        tproducto2 = tipoProducto("{}".format(randint(0, 500)), "Tornillos", pasillo2.idpropio())
+        tproducto3 = tipoProducto("{}".format(randint(0, 500)), "Martillos", pasillo3.idpropio())
 
-        productoS1 = tipoProducto("{}".format(randint(0, 500)), "Taladros")
-        productoS2 = tipoProducto("{}".format(randint(0, 500)), "Tornillos")
-        productoS3 = tipoProducto("{}".format(randint(0, 500)), "Martillos")
+        producto1 = producto("{}".format(randint(0, 500)), "Taladro MECO", 12000, tproducto1.identificacion())
+        producto2 = producto("{}".format(randint(0, 500)), "Taladro ALPINOS", 34000, tproducto1.identificacion())
+        producto3 = producto("{}".format(randint(0, 500)), "Tornillos 1/2 Pulgada", 1000, tproducto2.identificacion())
+        producto4 = producto("{}".format(randint(0, 500)), "Tornillos 1/4 Pulgadas", 995, tproducto2.identificacion())
+        producto5 = producto("{}".format(randint(0, 500)), "Martillo Feliz", 53990, tproducto3.identificacion())
+        producto6 = producto("{}".format(randint(0, 500)), "Martillo Saiyajin", 75000, tproducto3.identificacion())
 
-        productoS1.agregarPila(tproducto1S1)
-        productoS1.agregarPila(tproducto2S1)
-        productoS2.agregarPila(tproducto1S2)
-        productoS2.agregarPila(tproducto2S2)
-        productoS3.agregarPila(tproducto1S3)
-        productoS3.agregarPila(tproducto2S3)
+        tproducto1.agregarPila(producto1)
+        tproducto1.agregarPila(producto2)
+        tproducto2.agregarPila(producto3)
+        tproducto2.agregarPila(producto4)
+        tproducto3.agregarPila(producto5)
+        tproducto3.agregarPila(producto6)
 
-        pasillo1S1.agregarProducto(productoS1)
-        pasillo2S1.agregarProducto(productoS1)
-        pasillo1S2.agregarProducto(productoS2)
-        pasillo2S2.agregarProducto(productoS2)
-        pasillo1S3.agregarProducto(productoS3)
-        pasillo2S3.agregarProducto(productoS3)
+        pasillo1.agregarProducto(tproducto1)
+        pasillo2.agregarProducto(tproducto1)
 
-        sucursal1.Secciones.agregarInicio(pasillo1S1)
-        sucursal1.Secciones.agregarInicio(pasillo2S1)
-        sucursal1.Secciones.agregarInicio(pasillo1S2)
-        sucursal1.Secciones.agregarInicio(pasillo2S2)
-        sucursal1.Secciones.agregarInicio(pasillo1S3)
-        sucursal1.Secciones.agregarInicio(pasillo2S3)
+        sucursal1.Secciones.agregarInicio(pasillo1)
+        sucursal1.Secciones.agregarInicio(pasillo2)
+
+        pasillo3.agregarProducto(tproducto2)
+        pasillo4.agregarProducto(tproducto2)
+
+        sucursal2.Secciones.agregarInicio(pasillo3)
+        sucursal2.Secciones.agregarInicio(pasillo4)
+
+        pasillo5.agregarProducto(tproducto3)
+        pasillo6.agregarProducto(tproducto3)
+
+        sucursal3.Secciones.agregarInicio(pasillo5)
+        sucursal3.Secciones.agregarInicio(pasillo6)
 
         self.ferreteria.append(sucursal1)
         self.ferreteria.append(sucursal2)
@@ -88,14 +96,14 @@ class menu:
                 opcion = int(opcion)
                 if opcion == 1:
                     self.agregar_sucursal()
-                if opcion == 2:
+                elif opcion == 2:
                     nSucursal = input("Digite el numero de sucursal a la cual desea acceder: ")
                     if nSucursal.isnumeric() is False or int(nSucursal) > len(self.ferreteria) or int(nSucursal) < 0:
                         print("No se digito una opcion valida")
                         os.system("pause")
                     elif nSucursal != "0":
                         self.menuSucursal(int(nSucursal))
-                if opcion == 3:
+                elif opcion == 3:
                     validar = False
                     idSucursal = input("Digite el ID de la sucursal a borrar: ")
                     for i in range(0, len(self.ferreteria)):
@@ -105,6 +113,8 @@ class menu:
                             break
                     if validar == False: print("No se encontro esta sucursal")
                     os.system("pause")
+                elif opcion == 0:
+                    self.archivo.guardarSucursales(self.ferreteria)
 
     def agregar_sucursal(self):
         print("**********El martillazo Feliz**********\n\n"
@@ -119,7 +129,7 @@ class menu:
                     numero_seccion = input("Digite el numero de la seccion: ")
                     if numero_seccion.isnumeric() is True:
                         if nueva_sucursal.seccionesSucursal().buscar(int(numero_seccion)) is False:
-                            nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
+                            nueva_seccion = seccion(nueva_sucursal.myID() , nombre_seccion, int(numero_seccion), "{}".format(randint(0, 1000)))
                             self.agregarProductos(nueva_seccion)
                             posicion = input("En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
                             if posicion == "1":
@@ -148,7 +158,7 @@ class menu:
             nombre_tipo_producto = input("Digite el nombre del tipo del producto: ")
             if nombre_tipo_producto.isnumeric() is False:
                 nuevo_tipo_producto = tipoProducto("{}".format(randint(0, 500)),
-                                                   nombre_tipo_producto)
+                                                   nombre_tipo_producto, seccion.idpropio())
                 agregar_productos = True
                 while agregar_productos is True:
                     nombre_producto = input("Digite el nombre del Producto: ")
@@ -156,8 +166,8 @@ class menu:
                         precio_producto = input(
                             "Digite el precio (en colones) del producto " + nombre_producto + ": ")
                         if precio_producto.isnumeric() is True:
-                            nuevo_producto = producto("{}".format(randint(0, 1000)), nombre_producto,
-                                                      precio_producto)
+                            nuevo_producto = producto("{}".format(randint(0, 500)), nombre_producto,
+                                                      precio_producto, nuevo_tipo_producto.identificacion())
                             nuevo_tipo_producto.agregarPila(nuevo_producto)
                             agregar = input("Desea agregar otro producto? (S = Si, Otra Tecla = No): ")
                             if agregar != "S":
@@ -397,8 +407,11 @@ class menu:
                     elif numero == "4":
                         nombre = input("Digite el nuevo nombre del pasillo: ")
                         numero = input("Digite el nuevo numero de pasillo: ")
-                        seccion.actualizar(nombre, numero)
-                        print("Se ha actualizado con exito!")
+                        if sucursal.seccionesSucursal().buscar(int(numero_seccion)) is False:
+                            seccion.actualizar(nombre, numero)
+                            print("Se ha actualizado con exito!")
+                        else:
+                            print("Este numero de seccion ya existe")
                         os.system("pause")
                     elif numero == "0":
                         os.system("pause")
@@ -426,7 +439,7 @@ class menu:
                         numero_seccion = input("Digite el numero de la seccion: ")
                         if numero_seccion.isnumeric() is True:
                             if sucursal.seccionesSucursal().buscar(int(numero_seccion)) is False:
-                                nueva_seccion = seccion(nombre_seccion, int(numero_seccion))
+                                nueva_seccion = seccion(sucursal.myID(), nombre_seccion, int(numero_seccion), "{}".format(randint(0, 1000)))
                                 self.agregarProductos(nueva_seccion)
                                 posicion = input(
                                     "En que posicion desea ingresar la seccion? 1-Inicio Otra tecla- Final: ")
@@ -470,7 +483,7 @@ class menu:
                         precio_producto = input(
                             "Digite el precio (en colones) del producto " + nombre_producto + ": ")
                         if precio_producto.isnumeric() is True:
-                            nuevo_producto = producto("{}".format(randint(0, 1000)), nombre_producto,
+                            nuevo_producto = producto(tproducto.identificacion(), nombre_producto,
                                                       precio_producto)
                             tproducto.agregarPila(nuevo_producto)
                             agregar = input("Desea agregar otro producto? (S = Si, Otra Tecla = No): ")

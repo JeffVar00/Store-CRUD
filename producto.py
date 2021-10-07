@@ -1,10 +1,11 @@
 
 class producto:
 
-    def __init__(self, ID, nombre, precio):
+    def __init__(self, ID, nombre, precio, IDtipo):
         self.ID = ID
         self.nombre = nombre
         self.precio = precio
+        self.IDtipo = IDtipo
 
     def idTipo(self):
         return self.ID

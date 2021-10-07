@@ -44,7 +44,7 @@ class listaDobleC:
     def mostrar(self):
         aux = self.primero
         if self.vacia():
-            print("Vacio")
+            print("Sin secciones")
         else:
             while aux:
                 print(aux.dato.toString())
