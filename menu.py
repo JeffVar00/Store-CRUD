@@ -117,7 +117,7 @@ class menu:
                             "Digite el precio (en colones) del producto " + nombre_producto + ": ")
                         if precio_producto.isnumeric() is True:
                             nuevo_producto = producto("{}".format(randint(0, 500)), nombre_producto,
-                                                      precio_producto, nuevo_tipo_producto.identificacion())
+                                                      int(precio_producto), nuevo_tipo_producto.identificacion())
                             nuevo_tipo_producto.agregarPila(nuevo_producto)
                             agregar = input("Desea agregar otro producto? (S = Si, Otra Tecla = No): ")
                             if agregar != "S":
@@ -435,8 +435,8 @@ class menu:
                         precio_producto = input(
                             "Digite el precio (en colones) del producto " + nombre_producto + ": ")
                         if precio_producto.isnumeric() is True:
-                            nuevo_producto = producto(tproducto.identificacion(), nombre_producto,
-                                                      precio_producto)
+                            nuevo_producto = producto("{}".format(randint(0, 500)), nombre_producto,
+                                                      int(precio_producto), tproducto.identificacion())
                             tproducto.agregarPila(nuevo_producto)
                             agregar = input("Desea agregar otro producto? (S = Si, Otra Tecla = No): ")
                             if agregar != "S":

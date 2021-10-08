@@ -1,49 +1,49 @@
 ID producto,Nombre,ID Seccion
-11P4,Duchas,ID11
-11P3,Lavamanos,ID11
-11P2,Inodoro,ID11
 11P1,Ceramica,ID11
-21P4,Plomeria,ID21
-21P3,Aceros,ID21
-21P2,Sierras,ID21
+11P2,Inodoro,ID11
+11P3,Lavamanos,ID11
+11P4,Duchas,ID11
 21P1,Martillos,ID21
-31P4,Reglas,ID31
-31P3,Mesas,ID31
-31P2,Marcos,ID31
+21P2,Sierras,ID21
+21P3,Aceros,ID21
+21P4,Plomeria,ID21
 31P1,Puertas,ID31
-41P4,En aceite,ID41
-41P3,Anticorrosivos,ID41
-41P2,Para madera,ID41
+31P2,Marcos,ID31
+31P3,Mesas,ID31
+31P4,Reglas,ID31
 41P1,En spray,ID41
-12P4,Duchas,ID12
-12P3,Lavamanos,ID12
-12P2,Inodoro,ID12
+41P2,Para madera,ID41
+41P3,Anticorrosivos,ID41
+41P4,En aceite,ID41
 12P1,Ceramica,ID12
-22P4,Plomeria,ID22
-22P3,Aceros,ID22
-22P2,Sierras,ID22
+12P2,Inodoro,ID12
+12P3,Lavamanos,ID12
+12P4,Duchas,ID12
 22P1,Martillos,ID22
-32P4,Reglas,ID32
-32P3,Mesas,ID32
-32P2,Marcos,ID32
+22P2,Sierras,ID22
+22P3,Aceros,ID22
+22P4,Plomeria,ID22
 32P1,Puertas,ID32
-42P4,En aceite,ID42
-42P3,Anticorrosivos,ID42
-42P2,Para madera,ID42
+32P2,Marcos,ID32
+32P3,Mesas,ID32
+32P4,Reglas,ID32
 42P1,En spray,ID42
-13P4,Duchas,ID13
-13P3,Lavamanos,ID13
-13P2,Inodoro,ID13
+42P2,Para madera,ID42
+42P3,Anticorrosivos,ID42
+42P4,En aceite,ID42
 13P1,Ceramica,ID13
-23P4,Plomeria,ID23
-23P3,Aceros,ID23
-23P2,Sierras,ID23
+13P2,Inodoro,ID13
+13P3,Lavamanos,ID13
+13P4,Duchas,ID13
 23P1,Martillos,ID23
-33P4,Reglas,ID33
-33P3,Mesas,ID33
-33P2,Marcos,ID33
+23P2,Sierras,ID23
+23P3,Aceros,ID23
+23P4,Plomeria,ID23
 33P1,Puertas,ID33
-43P4,En aceite,ID43
-43P3,Anticorrosivos,ID43
-43P2,Para madera,ID43
+33P2,Marcos,ID33
+33P3,Mesas,ID33
+33P4,Reglas,ID33
 43P1,En spray,ID43
+43P2,Para madera,ID43
+43P3,Anticorrosivos,ID43
+43P4,En aceite,ID43
