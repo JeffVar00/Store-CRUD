@@ -32,7 +32,7 @@ class seccion:
         return self.productos
 
     def toString(self):
-        return self.IDseccion+"# Pasillo: {}".format(self.numero) + ", " + self.nombre
+        return "# Pasillo: {}".format(self.numero) + ", " + self.nombre
 
     def agregarProducto(self, dato):
         self.productos.agregarInicio(dato)

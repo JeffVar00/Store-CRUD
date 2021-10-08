@@ -52,6 +52,18 @@ class listaDobleC:
                 if aux == self.primero:
                     break
 
+    def devolverGuardar(self):
+        listaSecciones = []
+        aux = self.primero
+        if self.vacia():
+            print("Sin secciones")
+        else:
+            while aux:
+                listaSecciones.append(aux.dato)
+                aux = aux.siguiente
+                if aux == self.primero:
+                    return listaSecciones
+
     def eliminarInicio(self):
         if self.primero == self.ultimo:
             self.primero = self.ultimo = None

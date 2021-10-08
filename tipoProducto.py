@@ -13,7 +13,7 @@ class tipoProducto:
         return (self.ID)
 
     def toString(self):
-        return "ID: " + self.ID + ", Nombre: " + self.nombre + self.IDseccion
+        return "ID: " + self.ID + ", Nombre: " + self.nombre
 
     def agregarPila(self, dato):
         self.pilaProductos.incluir(dato)
