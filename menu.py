@@ -7,6 +7,7 @@ from tipoProducto import tipoProducto
 from producto import producto
 from cliente import cliente
 from pila import pila
+from factura import factura
 import queue
 import time
 
@@ -15,6 +16,7 @@ class menu:
     def __init__(self):
         self.nuevo = False
         self.ferreteria = []
+        self.factura = []
         self.colaClientes = queue.Queue(5)
         self.archivo = archivos()
 
@@ -61,6 +63,7 @@ class menu:
                     if validar == False: print("No se encontro esta sucursal")
                     os.system("pause")
                 elif opcion == 0:
+                    self.archivo.guardarFacturas(self.factura)
                     self.archivo.guardarSucursales(self.ferreteria)
 
     def agregar_sucursal(self):
@@ -254,7 +257,7 @@ class menu:
 
     def pagar(self):
         total = 0
-        factura = []
+        lfactura = []
         print("-------Cajas-------")
         self.colaClientes.put(self.cliente)
         print("Se ingreso a la cola")
@@ -262,11 +265,13 @@ class menu:
         for i in range(0, self.cliente.carritoCliente().tamano()):
             total += self.cliente.carritoCliente().inspeccionar().precioP()
             print("Se extrajo " + self.cliente.carritoCliente().inspeccionar().toString())
-            factura.append(self.cliente.carritoCliente().extraer())
+            lfactura.append(self.cliente.carritoCliente().extraer())
         print("-----Factura-----")
         print("Fecha y hora de salida: " + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
-        for i in range(0, len(factura)):
-            print(factura[i].toString())
+        new_factura = factura(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()), lfactura)
+        self.factura.append(new_factura)
+        for i in range(0, len(lfactura)):
+            print(lfactura[i].toString())
         print("Total: {}".format(total))
         self.colaClientes.get()
         print("Se salio de la cola")

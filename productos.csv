@@ -1,25 +1,85 @@
-ID producto,Nombre,Precio,ID tipoProducto
-11P1
-11P1
-11P2
-11P2
-11P3
-11P3
-11P4
-11P4
-21P1
-21P1
-21P2
-21P2
-21P3
-21P3
-21P4
-21P4
-31P1
-31P1
-31P2
-31P2
-31P3
-31P3
-31P4
-31P4
+ID producto,Nombre,Precio,ID tipoProducto
+1,Ducha de Mano,255000,11P4
+1,Lavamanos de Porcelana,81500,11P3
+2,Inodoro 1 pieza,239950,11P2
+1,Inodoro 2 piezas,329500,11P2
+2,Ceramica Blanco Brillante,10350,11P1
+1,Ceramica Blanca,10295,11P1
+2,Llave de Paso 1/2 pulgada,5795,21P4
+1,Tubo PVC sdr41 4x3 metros,37500,21P4
+2,Varilla lisa numero 4 grado 40 de 6m,5175,21P3
+2,Martillo Madera Stanley 16 oz,4150,21P1
+1,Martillo Acero 20 onzas,4895,21P1
+2,Pino cepillado 1x6 pulgadas,12595,31P4
+1,Regla laurel cepillado 1x4 pulgadas,4350,31P4
+2,Panel de mesa teca 5x50x50 cm,21250,31P3
+1,Panel de mesa teca 5x80x160 cm,97950,31P3
+2,Marco de seguridad de pino 30x115 mm,23950,31P2
+1,Marco para puerta de melina 5x11x223 cm,29995,31P2
+1,Puerta de Pino 6 tbaleros 90x210 cm,36450,31P1
+2,Lanco Pintura en Aceite color Gris,5950,41P4
+1,Lanco Pintura en Aceite color Blanco,5950,41P4
+2,SUR Corrostop blanco 1/4 galon,7495,41P3
+1,Lanco Anticorrosivo durex mate blanco 1/4 galon,5950,41P3
+2,Lanco Barniz medium oak 1/4 galon,6495,41P2
+1,Lanco Barniz marron oscuro 1 galon,22950,41P2
+2,Pintura en spray negro brillante,6495,41P1
+1,Spray acrilico transparente 312g,2950,41P1
+2,Panel de Ducha,169950,12P4
+1,Ducha de Mano,255000,12P4
+2,Lavamanos de Marmol,89950,12P3
+1,Lavamanos de Porcelana,81500,12P3
+2,Inodoro 1 pieza,239950,12P2
+1,Inodoro 2 piezas,329500,12P2
+2,Ceramica Blanco Brillante,10350,12P1
+1,Ceramica Blanca,10295,12P1
+2,Llave de Paso 1/2 pulgada,5795,22P4
+1,Tubo PVC sdr41 4x3 metros,37500,22P4
+2,Varilla lisa numero 4 grado 40 de 6m,5175,22P3
+2,Martillo Madera Stanley 16 oz,4150,22P1
+1,Martillo Acero 20 onzas,4895,22P1
+2,Pino cepillado 1x6 pulgadas,12595,32P4
+1,Regla laurel cepillado 1x4 pulgadas,4350,32P4
+2,Panel de mesa teca 5x50x50 cm,21250,32P3
+1,Panel de mesa teca 5x80x160 cm,97950,32P3
+2,Marco de seguridad de pino 30x115 mm,23950,32P2
+1,Marco para puerta de melina 5x11x223 cm,29995,32P2
+2,Puerta skin 6 tableros 65x210 cm,24500,32P1
+1,Puerta de Pino 6 tbaleros 90x210 cm,36450,32P1
+2,Lanco Pintura en Aceite color Gris,5950,42P4
+1,Lanco Pintura en Aceite color Blanco,5950,42P4
+2,SUR Corrostop blanco 1/4 galon,7495,42P3
+1,Lanco Anticorrosivo durex mate blanco 1/4 galon,5950,42P3
+2,Lanco Barniz medium oak 1/4 galon,6495,42P2
+1,Lanco Barniz marron oscuro 1 galon,22950,42P2
+2,Pintura en spray negro brillante,6495,42P1
+1,Spray acrilico transparente 312g,2950,42P1
+2,Panel de Ducha,169950,13P4
+1,Ducha de Mano,255000,13P4
+2,Lavamanos de Marmol,89950,13P3
+1,Lavamanos de Porcelana,81500,13P3
+2,Inodoro 1 pieza,239950,13P2
+1,Inodoro 2 piezas,329500,13P2
+2,Ceramica Blanco Brillante,10350,13P1
+1,Ceramica Blanca,10295,13P1
+2,Llave de Paso 1/2 pulgada,5795,23P4
+1,Tubo PVC sdr41 4x3 metros,37500,23P4
+2,Varilla lisa numero 4 grado 40 de 6m,5175,23P3
+2,Martillo Madera Stanley 16 oz,4150,23P1
+1,Martillo Acero 20 onzas,4895,23P1
+2,Pino cepillado 1x6 pulgadas,12595,33P4
+1,Regla laurel cepillado 1x4 pulgadas,4350,33P4
+2,Panel de mesa teca 5x50x50 cm,21250,33P3
+1,Panel de mesa teca 5x80x160 cm,97950,33P3
+2,Marco de seguridad de pino 30x115 mm,23950,33P2
+1,Marco para puerta de melina 5x11x223 cm,29995,33P2
+2,Puerta skin 6 tableros 65x210 cm,24500,33P1
+1,Puerta de Pino 6 tbaleros 90x210 cm,36450,33P1
+2,Lanco Pintura en Aceite color Gris,5950,43P4
+1,Lanco Pintura en Aceite color Blanco,5950,43P4
+2,SUR Corrostop blanco 1/4 galon,7495,43P3
+1,Lanco Anticorrosivo durex mate blanco 1/4 galon,5950,43P3
+2,Lanco Barniz medium oak 1/4 galon,6495,43P2
+1,Lanco Barniz marron oscuro 1 galon,22950,43P2
+2,Pintura en spray negro brillante,6495,43P1
+1,Spray acrilico transparente 312g,2950,43P1

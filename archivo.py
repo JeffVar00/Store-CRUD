@@ -14,8 +14,18 @@ class archivos:
         self.listaTProductos = []
         self.listaProductos = []
 
-    def guardarFacturas(self):
-        pass
+    def guardarFacturas(self, facturas):
+        headers = ('Fecha y hora de salida', 'Productos comprados')
+        with open('facturas.csv', 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=headers)
+            writer.writeheader()
+            for i in range(0, len(facturas)):
+                fecha = ({'Fecha y hora de salida': facturas[i].fecha()})
+                writer.writerow(fecha)
+                aux = facturas[i].misProductos()
+                for x in range(0, len(aux)):
+                    producto = ({'Productos comprados' : aux[x].toString()})
+                    writer.writerow(producto)
 
     def guardarSucursales(self, sucursales):
         headers = ('ID', 'Ubicacion')
