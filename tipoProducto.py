@@ -9,6 +9,12 @@ class tipoProducto:
         self.IDseccion = IDseccion
         self.pilaProductos = pila()
 
+    def nom(self):
+        return self.nombre
+
+    def idSeccion(self):
+        return self.IDseccion
+
     def identificacion(self):
         return (self.ID)
 

@@ -7,8 +7,14 @@ class producto:
         self.precio = precio
         self.IDtipo = IDtipo
 
-    def idTipo(self):
+    def nom(self):
+        return self.nombre
+
+    def idPropio(self):
         return self.ID
+
+    def idTipo(self):
+        return self.IDtipo
 
     def precioP(self):
         return self.precio

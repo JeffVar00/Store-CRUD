@@ -43,6 +43,17 @@ class listaDoble:
                 print(temporal.MostrarDato())
                 temporal = temporal.siguiente
 
+    def devolverGuardar(self):
+        listaProductos = []
+        if self.primero is None:
+            print("La Lista de Productos se encuentra Vacia")
+        else:
+            temporal = self.primero
+            while temporal is not None:
+                listaProductos.append(temporal.dato)
+                temporal = temporal.siguiente
+            return listaProductos
+
     def eliminarInicio(self):
         # Si la lista está vacia, muestra al usuario que está vacia
         if self.primero is None:

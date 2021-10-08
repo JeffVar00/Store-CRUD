@@ -27,5 +27,15 @@ class pila:
         for i in range(0, len(pilaAux)):
             self.items.append(pilaAux.pop())
 
+    def devolverPagar(self):
+        pilaAux = []
+        pilaPagar = []
+        for i in range(0, self.tamano()):
+            pilaAux.append(self.items.pop())
+        for i in range(0, len(pilaAux)):
+            pilaPagar.append(pilaAux[i])
+            self.items.append(pilaAux[i])
+        return pilaPagar
+
 #pila productos y pila carrito
 #pila

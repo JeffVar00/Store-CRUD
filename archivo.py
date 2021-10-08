@@ -1,19 +1,18 @@
 from listaSeccion import listaDobleC
 from listaProducto import listaDoble
 from tipoProducto import tipoProducto
+from producto import producto
 from seccion import seccion
 from sucursal import sucursal
 import csv
 
 class archivos:
 
-    #sucursal tiene un ID, seccion hereda ese ID y crea uno propio que se hereda a los tipos de productos de esta seccion
-    #cada tipo de producto genera un ID propio que hereda a sus tipos de productos, estos crearn su propio ID pero es solo
-    #para identificarlos
-
     def __init__(self):
         self.listaSucursales = []
         self.listaSecciones = []
+        self.listaTProductos = []
+        self.listaProductos = []
 
     def guardarFacturas(self):
         pass
@@ -38,21 +37,38 @@ class archivos:
                 new_sucursal = sucursal(row['ID'], row['Ubicacion'])
                 self.cargarSecciones(new_sucursal)
                 self.listaSucursales.append(new_sucursal)
-                print(new_sucursal.toString())
-                new_sucursal.mostrar()
+            return self.listaSucursales
 
-    def cargarProductos(self):
-        pass
+    def cargarTProductos(self, new_seccion):
+        with open('tProductos.csv') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if new_seccion.idpropio() == row['ID Seccion']:
+                    new_producto = tipoProducto(row['ID producto'], row['Nombre'], row['ID Seccion'])
+                    self.cargarProductos(new_producto)
+                    new_seccion.manejarProductos().agregarInicio(new_producto)
 
-    def guardarProductos(self):
-        pass
+    def guardarTProductos(self):
+        headers = ('ID producto', 'Nombre', 'ID Seccion')
+        with open('tProductos.csv', 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=headers)
+            writer.writeheader()
+            aux = self.listaTProductos
+            for i in range(0, len(aux)):
+                aux2 = aux[i].manejarPila().devolverPagar()
+                for x in range(0, len(aux2)):
+                    self.listaProductos.append(aux2[x])
+                datos = ({'ID producto': aux[i].identificacion(), 'Nombre': aux[i].nom(), 'ID Seccion': aux[i].idSeccion()})
+                writer.writerow(datos)
+            self.guardarProductos()
 
     def cargarSecciones(self, new_sucursal):
         with open('secciones.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if new_sucursal.myID() == row['ID Sucursal']:
-                    new_seccion = seccion(row['ID Sucursal'] , row['Nombre'], row['Numero de Seccion'], row['ID Seccion'])
+                    new_seccion = seccion(row['ID Sucursal'] , row['Nombre'], int(row['Numero de Seccion']), row['ID Seccion'])
+                    self.cargarTProductos(new_seccion)
                     new_sucursal.seccionesSucursal().agregarFinal(new_seccion)
 
     def guardarSecciones(self):
@@ -62,12 +78,28 @@ class archivos:
             writer.writeheader()
             aux = self.listaSecciones
             for i in range(0, len(aux)):
+                aux2 = aux[i].manejarProductos().devolverGuardar()
+                for x in range(0, len(aux2)):
+                    self.listaTProductos.append(aux2[x])
                 datos = ({'ID Sucursal': aux[i].id(), 'Nombre': aux[i].nom(), 'Numero de Seccion' : aux[i].num(), 'ID Seccion' : aux[i].idpropio()})
                 writer.writerow(datos)
+            self.guardarTProductos()
 
-    def cargarTiposProductos(self):
-        pass
+    def cargarProductos(self, tProducto):
+        with open('productos.csv') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if tProducto.identificacion() == row['ID tipoProducto']:
+                    new_producto = producto(row['ID producto'], row['Nombre'], int(row['Precio']) , row['ID tipoProducto'])
+                    tProducto.agregarPila(new_producto)
 
-    def guardarTiposProductos(self):
-        pass
+    def guardarProductos(self):
+        headers = ('ID producto', 'Nombre', 'Precio' , 'ID tipoProducto')
+        with open('productos.csv', 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=headers)
+            writer.writeheader()
+            aux = self.listaProductos
+            for i in range(0, len(aux)):
+                datos = ({'ID producto': aux[i].idPropio(), 'Nombre': aux[i].nom(), 'Precio' : aux[i].precioP() , 'ID tipoProducto' : aux[i].idTipo()})
+                writer.writerow(datos)
 
